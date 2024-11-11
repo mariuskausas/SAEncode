@@ -19,7 +19,7 @@ def compute_kabsch_rmsd(P, Q):
     V = V.T
     D = np.linalg.det(V @ U.T)
     E = np.diag([1] * (m -1) + [D])
-    R- V@E@U.T
+    R = V @ E @ U.T
     Q_centered_rotated = Q_centered @ R
     rmsd = compute_rmsd(P_centered, Q_centered_rotated)
     return rmsd
