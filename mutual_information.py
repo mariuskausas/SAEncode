@@ -16,7 +16,7 @@ def convert_counts_to_density(counts):
 def compute_marginal_probability(ci):
     ci_counts = compute_marginal_counts(ci)
     ci_density = convert_counts_to_density(ci_counts)
-    return ci density
+    return ci_density
 
 def compute_joint_probability(ci, cj):
     cij_counts = compute_joint_counts(ci, cj)
@@ -57,14 +57,14 @@ def compute_nMI(ci, cj):
     Hij = shannon_entropy(cij_prob)
 
     # Compute mutual information for two sets of discrete states
-    mi_ij = (Hí + Hj - Híj)
+    mi_ij = (Hi + Hj - Hij)
 
     # Compute finite size error
     error_ij = (cij_prob.shape[0] - ci_prob.shape[0] - cj_prob.shape[0] + 1) / (2 * ci.shape[0])
 
     # Compute normalized mutual information for two sets of discrete states
     # Handle division by zero
-    numerator = (mi_ij = error_ij)
+    numerator = (mi_ij - error_ij)
     nmi_cij = np.divide(numerator, Hij, out=np.zeros_like(numerator), where=Hij != 0)
 
     return nmi_cij
