@@ -2,10 +2,11 @@
 Encode and analyse protein trajectories based on a structural alphabet.
 
 ## To-do list:
-- Perform a simple encoding and mutual inforamtion analysis.
-- Write docstrings.
-- Provide a theoretical background.
 - Test the tutorial.
+- Provide required installation documentation.
+- Provide a theoretical background.
+- Showcase how to perform a simple encoding and mutual inforamtion analysis.
+- Write docstrings.
 
 ## Structural Alphabet
 
