@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 
 setup(
     # Self-descriptive entries which should always be present
-    name='SAencode',
+    name='structural_alphabet',
     author='Marius Kausas',
     license='MIT',
     packages=find_packages(),

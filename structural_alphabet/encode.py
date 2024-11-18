@@ -1,5 +1,8 @@
 # Import libraries
 import numpy as np
+from tqdm import tqdm
+
+from .letters import M32K25, LETTERS
 
 
 def mean_center_coords(A):
