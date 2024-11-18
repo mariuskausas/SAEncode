@@ -2,9 +2,8 @@
 Python implementation of Structural Alphabet encoding of molecular dynamics trajectories.
 
 ## To-do list:
-- Provide required installation documentation.
 - Provide a theoretical background.
-- Showcase how to perform a simple encoding and mutual inforamtion analysis.
+- Update tutorial to showcase nMI comparison between simulation blocks.
 - Write docstrings.
 
 ## Structural Alphabet
@@ -68,6 +67,6 @@ array([['B', 'G', 'A', ..., 'U', 'U', 'W'],
 ```
 
 ```python
-# Compute normalized Mutual Information
+# Compute normalized mutual information for a given trajectory block
 traj_nmi = structural_alphabet.compute_nMI_for_traj_block(encoding=encoding)
 ```
