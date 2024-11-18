@@ -2,7 +2,6 @@
 Python implementation of Structural Alphabet encoding of molecular dynamics trajectories.
 
 ## To-do list:
-- Test the tutorial.
 - Provide required installation documentation.
 - Provide a theoretical background.
 - Showcase how to perform a simple encoding and mutual inforamtion analysis.
@@ -10,27 +9,39 @@ Python implementation of Structural Alphabet encoding of molecular dynamics traj
 
 ## Structural Alphabet
 
-Alphabet letter coordinates downloaded from: https://github.com/AllosterIt/M32K25/tree/master
+Structural Alphabet is source from: https://github.com/AllosterIt/M32K25/tree/master
+
+## Required  third-party packages
+
+```
+mdtraj
+numpy
+scipy
+tqdm
+```
+
+## Installation
+
+```bash
+# In the top level of the package
+pip install .
+```
 
 ## Tutorial
 
 ```python
 # Import libraries
-import mdtraj as mdt
-from MDAnalysisData import datasets
-
-from .letters import M32K25
-from .encode import encode_traj
-from .mutual_information import compute_nMI_for_traj_block
+import structural_alphabet
 ```
 
 ```python
-# Download data
+# Fetch an example molecular dynamics trajectory
+from MDAnalysisData import datasets
 adk = datasets.fetch_adk_equilibrium()
 ```
 
 ```python
-# Load dataset
+# Pre-process molecular dynamics trajectory and extract only CA
 top = mdt.load_psf(adk["topology"])
 ca_atoms = top.select("name CA")
 traj = mdt.load_dcd(
@@ -42,7 +53,7 @@ traj = mdt.load_dcd(
 
 ```python
 # Encode a trajectory
-traj_encoding = encode_traj(traj_xyz=traj.xyz)
+encoding = structural_alphabet.encode_traj(traj.xyz)
 ```
 
 ```
@@ -58,5 +69,5 @@ array([['B', 'G', 'A', ..., 'U', 'U', 'W'],
 
 ```python
 # Compute normalized Mutual Information
-traj_nMI = compute_nMI_for_traj_block(encoding=traj_encoding)
+traj_nmi = structural_alphabet.compute_nMI_for_traj_block(encoding=encoding)
 ```
