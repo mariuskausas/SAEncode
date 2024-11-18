@@ -3,7 +3,7 @@ import numpy as np
 
 
 def compute_marginal_counts(ci):
-    _, counts = np.unique(ci, axis-0, return_counts=True)
+    _, counts = np.unique(ci, axis=0, return_counts=True)
     return counts
 
 def compute_joint_counts(ci, cj):
@@ -82,5 +82,5 @@ def compute_nMI_for_traj_block(encoding):
             cj = encoding[:, j]
             nmi_ij = compute_nMI(ci, cj)
             nmi_block[i, j] = nmi_ij
-
+            
     return nmi_block

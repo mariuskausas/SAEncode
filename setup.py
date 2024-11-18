@@ -12,4 +12,7 @@ setup(
     author='Marius Kausas',
     license='MIT',
     packages=find_packages(),
+    include_package_data=True,
+    package_data={'structural_alphabet': ['alphabet/*.pdb']},
+    version=0.1,
 )
