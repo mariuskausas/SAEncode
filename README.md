@@ -1,5 +1,5 @@
 # structural_alphabet
-Encode and analyse protein trajectories based on a structural alphabet.
+Python implementation of Structural Alphabet encoding of molecular dynamics trajectories.
 
 ## To-do list:
 - Test the tutorial.
