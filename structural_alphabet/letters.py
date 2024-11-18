@@ -11,5 +11,5 @@ LETTERS = [
 # Load letter CA XYZ in a dictionary
 M32K25 = {}
 for letter in LETTERS:
-    letter_pdb = mdt.load_pdb(filename="M32K25/{}.pdb".format(letter))
+    letter_pdb = mdt.load_pdb(filename="alphabet/{}.pdb".format(letter))
     M32K25[letter] = letter_pdb.xyz[0]
