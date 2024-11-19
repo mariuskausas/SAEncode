@@ -3,27 +3,53 @@ import numpy as np
 from scipy.linalg import sqrtm
 
 
-def sqrtm_np(A):
-    """ Compute matrix square root using NumPy method. """
-    # Computing diagonalization
-    evalues, evectors = np.linalg.eigh(A)
-    # # Ensuring square root matrix exists
-    # assert (evalues >= 0).all()
-    sqrt_matrix = evectors * np.sqrt(evalues) @ np.linalg.inv(evectors)
-    return sqrt_matrix
-
 def matrix_overlap(A, B):
-    """ Compute matrix overlap between two matrices."""
+    """ 
+    Compute matrix overlap between two matrices.
+
+    Implementation as follows the following reference:
+    Berk Hess on "Convergence of sampling in protein simulations"
+    Physical Review E - Statistical, Nonlinear, and Soft Matter Physics, 2002.
+    
+    Parameters
+    ----------
+    A : np.array
+        A symmetric matrix.
+    B : np.array
+        A symmetric matrix.
+
+    Returns
+    -------
+    overlap : float
+        A value between [0, 1] describing similarity between two nmatrices.
+    """
+
     diff = sqrtm(A) - sqrtm(B)
     numerator = np.sqrt(np.trace(diff * diff))
     denominator = np.sqrt(np.trace(A) + np.trace(B))
     overlap = 1 - (numerator / denominator)
+
     return overlap
 
-def compute_matrix_overlap(mi_blocks):
-    """ Compute matrix overlap for a list of nMI blocks."""
-    overlap = np.zeros((len(mi_blocks), len(mi_blocks)))
-    for i in range(len(mi_blocks)):
-        for j in range(len(mi_blocks)):
-            overlap[i, j] = matrix_overlap(mi_blocks[i], mi_blocks[j])
+def compute_matrix_overlap(nmi_blocks):
+    """ 
+    Compute matrix overlap for a list of nMI blocks.
+    
+    Paramaters
+    ----------
+    nmi_blocks : list
+        A list of nMI blocks (matrices) for a given trajectory.
+    
+    Returns
+    -------
+    overlap : np.array
+        A matrix describing pairwise overlap between nMI blocks for a given trajectory.
+
+    """
+
+    overlap = np.zeros((len(nmi_blocks), len(nmi_blocks)))
+    for i in range(len(nmi_blocks)):
+        for j in range(len(nmi_blocks)):
+            overlap[i, j] = matrix_overlap(nmi_blocks[i], nmi_blocks[j])
+
     return overlap
