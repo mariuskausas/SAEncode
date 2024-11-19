@@ -1,14 +1,9 @@
 # structural_alphabet
-Python implementation of Structural Alphabet encoding of molecular dynamics trajectories.
+Structural encoding and mutual information analysis of molecular dynamics trajectories.
 
-## To-do list:
-- Provide a theoretical background.
-- Update tutorial to showcase nMI comparison between simulation blocks.
-- Write docstrings.
-
-## Structural Alphabet
-
-Structural Alphabet is source from: https://github.com/AllosterIt/M32K25/tree/master
+Python implementation of "Detection of allosteric signal transmission by information-theoretic analysis of protein dynamics" by Alessandro Pandini et al, 2012:
+- Paper link: https://faseb.onlinelibrary.wiley.com/doi/full/10.1096/fj.11-190868
+- Structural Alphabet was sourced from: https://github.com/AllosterIt/M32K25/tree/master
 
 ## Required  third-party packages
 
@@ -50,6 +45,11 @@ traj = mdt.load_dcd(
     )
 ```
 
+```
+# More about the mdtraj trajectory object
+<mdtraj.Trajectory with 4187 frames, 214 atoms, 214 residues, and unitcells at 0x7f31792ecc80>
+```
+
 ```python
 # Encode a trajectory
 encoding = structural_alphabet.encode_traj(traj.xyz)
@@ -69,4 +69,9 @@ array([['B', 'G', 'A', ..., 'U', 'U', 'W'],
 ```python
 # Compute normalized mutual information for a given trajectory block
 traj_nmi = structural_alphabet.compute_nMI_for_traj_block(encoding=encoding)
+```
+
+```python
+# Compute similarity (matrix overlap) between two normalized mutual information matrices
+similarity = structural_alphabet.compute_matrix_overlap([traj_nmi_1, traj_nmi_2])
 ```
