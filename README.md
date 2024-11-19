@@ -1,11 +1,10 @@
-# structural_alphabet
-Structural encoding and mutual information analysis of molecular dynamics trajectories.
+## Structural encoding and mutual information analysis of molecular dynamics trajectories.
 
 Python implementation of "Detection of allosteric signal transmission by information-theoretic analysis of protein dynamics" by Alessandro Pandini et al, 2012:
 - Paper link: https://faseb.onlinelibrary.wiley.com/doi/full/10.1096/fj.11-190868
 - Structural Alphabet was sourced from: https://github.com/AllosterIt/M32K25/tree/master
 
-## Required  third-party packages
+### Required  third-party packages
 
 ```
 mdtraj
@@ -14,14 +13,14 @@ scipy
 tqdm
 ```
 
-## Installation
+### Installation
 
 ```bash
 # In the top level of the package
 pip install .
 ```
 
-## Tutorial
+### Tutorial
 
 ```python
 # Import libraries
