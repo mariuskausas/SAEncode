@@ -107,15 +107,3 @@ ENV/
 
 # PyCharm settings
 .idea
-
-# Project specific output files
-sandbox.py
-*.dat
-*.fit
-*.txt
-*.xtc
-*.pdb
-*.png
-*.ipynb
-*.pkl
-*.npy
