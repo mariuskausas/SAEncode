@@ -2,9 +2,10 @@
 
 Python implementation of structural encoding using M32K25 and mutual information analysis of molecular dynamics trajectories based on the following references:
 
-- "Detection of allosteric signal transmission by information-theoretic analysis of protein dynamics" by Pandini et al, 2012: https://faseb.onlinelibrary.wiley.com/doi/full/10.1096/fj.11-190868
-- "Functional cross-talk between allosteric effects of activating and inhibiting ligands underlies PKM2 regulation" by Macpherson et al, 2019: https://elifesciences.org/articles/45068
-- M32K25 structural alphabet was sourced from: https://github.com/AllosterIt/M32K25/tree/master
+- [Detection of allosteric signal transmission by information-theoretic analysis of protein dynamics](https://faseb.onlinelibrary.wiley.com/doi/full/10.1096/fj.11-190868)
+- [Functional cross-talk between allosteric effects of activating and inhibiting ligands underlies PKM2 regulation](https://elifesciences.org/articles/45068)
+
+M32K25 structural alphabet was sourced from: https://github.com/AllosterIt/M32K25/tree/master
 
 ### Required  third-party packages
 
