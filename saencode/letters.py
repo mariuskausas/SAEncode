@@ -14,7 +14,7 @@ LETTERS = [
 
 # Load letter CA XYZ in a dictionary
 M32K25 = {}
-with importlib.resources.path('structural_alphabet.alphabet', '') as resource_path: 
+with importlib.resources.path('saencode.alphabet', '') as resource_path: 
     data_path = Path(resource_path)
     path_to_pdbs = list(data_path.iterdir())
     for path_to_pdb in path_to_pdbs:

@@ -1,3 +1,0 @@
-from structural_alphabet.encode import encode_traj
-from structural_alphabet.mutual_information import compute_nMI_for_traj_block
-from structural_alphabet.matrix_overlap import compute_matrix_overlap

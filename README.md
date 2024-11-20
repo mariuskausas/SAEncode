@@ -26,7 +26,7 @@ pip install .
 
 ```python
 # Import libraries
-import structural_alphabet
+import saencode
 ```
 
 ```python
@@ -53,7 +53,7 @@ traj = mdt.load_dcd(
 
 ```python
 # Encode a trajectory
-encoding = structural_alphabet.encode_traj(traj.xyz)
+encoding = saencode.encode_traj(traj.xyz)
 ```
 
 ```
@@ -69,10 +69,10 @@ array([['B', 'G', 'A', ..., 'U', 'U', 'W'],
 
 ```python
 # Compute normalized mutual information for a given trajectory block
-traj_nmi = structural_alphabet.compute_nMI_for_traj_block(encoding=encoding)
+traj_nmi = saencode.compute_nMI_for_traj_block(encoding=encoding)
 ```
 
 ```python
 # Compute similarity (matrix overlap) between two normalized mutual information matrices
-similarity = structural_alphabet.compute_matrix_overlap([traj_nmi_1, traj_nmi_2])
+similarity = saencode.compute_matrix_overlap([traj_nmi_1, traj_nmi_2])
 ```
