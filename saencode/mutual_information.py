@@ -20,6 +20,7 @@ def compute_marginal_counts(ci):
     _, counts = np.unique(ci, axis=0, return_counts=True)
     return counts
 
+
 def compute_joint_counts(ci, cj):
     """
     Count joint letters for two given columns of encoding.
@@ -40,9 +41,11 @@ def compute_joint_counts(ci, cj):
     _, counts = np.unique(np.array(list(zip(ci, cj))), axis=0, return_counts=True)
     return counts
 
+
 def convert_counts_to_density(counts):
     """ Convert count data into a probability distribution."""
     return counts / counts.sum()
+
 
 def compute_marginal_probability(ci):
     """
@@ -62,6 +65,7 @@ def compute_marginal_probability(ci):
     ci_counts = compute_marginal_counts(ci)
     ci_density = convert_counts_to_density(ci_counts)
     return ci_density
+
 
 def compute_joint_probability(ci, cj):
     """
@@ -83,6 +87,7 @@ def compute_joint_probability(ci, cj):
     cij_density = convert_counts_to_density(cij_counts)
     return cij_density
 
+
 def shannon_entropy(probs):
     """ Compute Shannon Entropy for a given probability distribution."""
 
@@ -90,6 +95,7 @@ def shannon_entropy(probs):
     if H == 0.0:
         return H
     return -H
+
 
 def compute_nMI(ci, cj):
     """
@@ -132,19 +138,20 @@ def compute_nMI(ci, cj):
 
     return nmi_cij
 
-def compute_nMI_for_traj_block(encoding):
+
+def compute_nMI_for_single_block(encoding):
     """ 
-    Compute a normalized mutual information (nMI) for a given encoding.
+    Compute a normalized mutual information (nMI) for a single encoding block.
 
     Parameters
     ----------
     encoding : np.array
-        A matrix (num_of_frames, num_of_alphabets) containing trajectory encoding.
+        A matrix (num_of_frames, num_of_alphabet_residues) containing trajectory encoding.
 
     Returns
     -------
     nmi_block : np.array
-        A matrix (num_of_alphabets, num_of_alphabets) containing nMI between each encoding position.
+        A matrix (num_of_alphabets, num_of_alphabet_residues) containing nMI between each encoding position.
 
     """
 
@@ -161,3 +168,32 @@ def compute_nMI_for_traj_block(encoding):
             nmi_block[i, j] = nmi_ij
             
     return nmi_block
+
+
+def compute_nMI_for_traj_blocks(encoding, number_of_blocks=5):
+    """ 
+    Compute a normalized mutual information (nMI) for multiple encoding blocks.
+
+    Parameters
+    ----------
+    encoding : np.array
+        A matrix (num_of_frames, num_of_alphabet_residues) containing trajectory encoding.
+
+    Returns
+    -------
+    nmi_block : np.array
+        A matrix (num_of_alphabets, num_of_alphabet_residues) containing nMI between each encoding position.
+
+    """
+
+    # Calculate block size
+    traj_nmi_blocks = []
+    block_size = int(encoding.shape[0] / number_of_blocks)
+
+    # Enumerate each block and compute nMI for a single block
+    for block_id in range(number_of_blocks):
+        encoding_per_block = encoding[block_size * block_id: block_size * (block_id + 1)]
+        traj_nmi_per_block = compute_nMI_for_single_block(encoding=encoding_per_block)
+        traj_nmi_blocks.append(traj_nmi_per_block)
+
+    return traj_nmi_blocks

@@ -43,7 +43,7 @@ def compute_matrix_overlap(nmi_blocks):
     Returns
     -------
     overlap : np.array
-        A matrix describing pairwise overlap between nMI blocks for a given trajectory.
+        A matrix (num_of_blocks, num_of_blocks) describing pairwise overlap between nMI blocks for a given trajectory.
 
     """
 
