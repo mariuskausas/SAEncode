@@ -17,6 +17,33 @@ Apply structural alphabet and information-theoretical approach to quantify conve
 
 The pipeline reduces a trajectory to a string of structural-alphabet letters, quantifies the statistical coupling between positions with normalized mutual information, and compares coupling matrices across trajectory blocks with a matrix overlap.
 
+```
+  ┌───────────────────────────┐
+  │   MD trajectory (xyz)      │   frames × atoms × 3
+  │   T frames of Cα atoms     │
+  └─────────────┬─────────────┘
+                │  sliding window of 4 consecutive Cα atoms
+                │  Kabsch-aligned to each M32K25 reference (min RMSD)
+                ▼
+  ┌───────────────────────────┐
+  │   Structural encoding      │   encode_traj()
+  │   frames × SA-letter string│   e.g. "A G K ... Y"
+  └─────────────┬─────────────┘
+                │  split into N trajectory blocks
+                │  per block: letter counts → p(a), p(b), p(a,b)
+                ▼
+  ┌───────────────────────────┐
+  │   Normalized mutual info   │   compute_nMI_for_traj_blocks()
+  │   N blocks of L × L nMI    │   Iᵢⱼ = Hᵢ + Hⱼ − Hᵢⱼ, bias-corrected
+  └─────────────┬─────────────┘
+                │  pairwise matrix square-root distance (Hess 2002)
+                ▼
+  ┌───────────────────────────┐
+  │   Matrix overlap Ω(A,B)    │   compute_matrix_overlap()
+  │   block-vs-block similarity│   Ω ∈ [0, 1], 1 = identical coupling
+  └───────────────────────────┘
+```
+
 ### Key theoretical elements
 
 The three core computations are summarized below.
@@ -96,7 +123,7 @@ From the `saencode` directory, run the following command to install the package 
 pip install -e ".[dev]"
 ```
 
-Run test from a local folder:
+Run tests from a local folder:
 
 ```bash
 pytest
@@ -121,6 +148,13 @@ tests/
 tutorial/
 └── example.ipynb          # End-to-end worked example 
 ```
+
+Package implements and showcases fundamental aspects of:
+- Applied linear algebra to compute structural comparisons and information-theoretic calculations.
+- Packaging and deployment of a scientific software.
+- Provided documentation through `README.md` and `numpy` docstring notation.
+- Code reusability through examples and clear import structure.
+- Ensuring code validity through testing.
 
 ### Tutorial
 
@@ -161,3 +195,4 @@ A full visualized example can be found here: `tutorial/example.ipynb`
 Notes on improving package:
 - Optimize computation of key computations and reduce dependencies on the looping.
 - Implement tools to identify allosteric residue positions.
+- Improve code testing.
