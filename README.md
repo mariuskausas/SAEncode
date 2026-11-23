@@ -183,7 +183,7 @@ A full visualized example can be found here: `tutorial/example.ipynb`
 
 ### Note on AI-drive development
 
-**2026 11 23:** Claude Opus 4.8 was employed to optimize the following
+**2026 11 23:** Claude Opus 4.8 was employed to optimize the following:
 - Review dependencies, setup `.toml`, and review imports.
 - Improve `importlib` usage when loading M32K25 alphabet.
 - Review docstrings and typing information.
