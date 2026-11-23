@@ -3,6 +3,32 @@ import numpy as np
 from scipy.linalg import sqrtm
 
 
+def check_mat_is_psd(mat, tol=1e-8):
+    """
+    True if M is symmetric and positive semi-definite.
+    
+    Parameters
+    ----------
+    mat : np.array
+        Symmetric normalized mutual information or covariance matrix (n, n).
+
+    Returns
+    -------
+    bool
+        True, if matrix is symmetrix and positive semi-definite.
+    """
+
+    # Check that the matrix is 2-dimensional
+    if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
+        return False
+    # Check that matrix is symmetrical
+    elif not np.allclose(mat, mat.T, atol=tol):
+        return False
+    # Check if matrix is positive semi-definite
+    else:
+        return bool(np.all(np.linalg.eigvalsh(mat) >= -tol))
+
+
 def matrix_overlap(A, B):
     """ 
     Compute matrix overlap between two matrices.
@@ -24,6 +50,11 @@ def matrix_overlap(A, B):
         A value between [0, 1] describing similarity between two nmatrices.
     """
 
+    # Check if matrices are positive semi-definite
+    if not (check_mat_is_psd(A) and check_mat_is_psd(B)):
+        raise ValueError("matrix_overlap requires symmetric PSD matrices")
+
+    # Compute overlap between two matrices
     diff = sqrtm(A) - sqrtm(B)
     numerator = np.sqrt(np.trace(diff @ diff))
     denominator = np.sqrt(np.trace(A) + np.trace(B))
