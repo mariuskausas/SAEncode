@@ -25,7 +25,7 @@ def matrix_overlap(A, B):
     """
 
     diff = sqrtm(A) - sqrtm(B)
-    numerator = np.sqrt(np.trace(diff * diff))
+    numerator = np.sqrt(np.trace(diff @ diff))
     denominator = np.sqrt(np.trace(A) + np.trace(B))
     overlap = 1 - (numerator / denominator)
 
