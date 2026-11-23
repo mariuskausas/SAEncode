@@ -11,11 +11,15 @@ M32K25 structural alphabet was sourced from: https://github.com/AllosterIt/M32K2
 
 ### Objective
 
+Apply structural alphabet and information-theoretical approach to quantify convergence across multiple conformational states in molecular dynamics trajectories for a given sequence.
 
+### High-level methodology
 
-### Approach
+The pipeline reduces a trajectory to a string of structural-alphabet letters, quantifies the statistical coupling between positions with normalized mutual information, and compares coupling matrices across trajectory blocks with a matrix overlap.
 
-The pipeline reduces a trajectory to a string of structural-alphabet letters, quantifies the statistical coupling between positions with normalized mutual information, and compares coupling matrices across trajectory blocks with a matrix overlap. The three core computations are summarized below.
+### Key theoretical elements
+
+The three core computations are summarized below.
 
 #### 1. Kabsch alignment
 
@@ -31,11 +35,11 @@ $$
 H = P_c^{\top} Q_c, \qquad H = U \Sigma V^{\top}.
 $$
 
-The optimal rotation that superposes $Q_c$ onto $P_c$ is recovered while correcting for an improper reflection,
+The optimal rotation that superposes $Q_c$ onto $P_c$ is computed,
 
 $$
-d = \operatorname{sign}\!\left(\det\!\left(V U^{\top}\right)\right), \qquad
-R = V \, \operatorname{diag}(1, 1, d) \, U^{\top},
+d = \!\left(\det\!\left(V U^{\top}\right)\right), \qquad
+R = V \, diag(1, 1, d) \, U^{\top},
 $$
 
 and the fragment is assigned the letter minimizing the resulting root-mean-square deviation over $N = 4$ atoms,
@@ -65,11 +69,17 @@ $$
 Pairwise similarity between two symmetric positive semi-definite nMI matrices $A$ and $B$ is measured following Hess, *Phys. Rev. E* (2002), as a normalized distance between their matrix square roots,
 
 $$
-\Omega(A, B) = 1 - \frac{\sqrt{\operatorname{tr}\!\left[\left(A^{1/2} - B^{1/2}\right)^2\right]}}{\sqrt{\operatorname{tr}(A) + \operatorname{tr}(B)}},
+\Omega(A, B) = 1 - \frac{\sqrt{tr\!\left[\left(A^{1/2} - B^{1/2}\right)^2\right]}}{\sqrt{tr(A) + tr(B)}},
 $$
 
 which yields a value in $[0, 1]$, where $1$ indicates identical matrices.
 
+### Potential applications
+
+Use of structural alphabets and information theoretic approaches allows the following:
+- Capturing observed conformational states from molecular dynamics simulations using string-based (e.g. MK32K25 alphabet) encoding.
+- Encoding can be used as dynamic-based fingerprints to characterise conformational states or as input to machine learning models, e.g, sequence-based transformers.
+- Compare conformation states of un-bound and interacting proteins and identify residues that are crucial in dynamic or allosteric interactions.
 
 ### Installation
 
@@ -84,6 +94,12 @@ From the `saencode` directory, run the following command to install the package 
 
 ```bash
 pip install -e ".[dev]"
+```
+
+Run test from a local folder:
+
+```bash
+pytest
 ```
 
 ### Package structure
@@ -139,3 +155,9 @@ A full visualized example can be found here: `tutorial/example.ipynb`
 - Review docstrings and typing information.
 - Update `README.md` file with initial Latex formulaes.
 - Update `README.md` file with project structure.
+
+### Future improvements:
+
+Notes on improving package:
+- Optimize computation of key computations and reduce dependencies on the looping.
+- Implement tools to identify allosteric residue positions.
