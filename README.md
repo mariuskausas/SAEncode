@@ -187,8 +187,9 @@ A full visualized example can be found here: `tutorial/example.ipynb`
 - Review dependencies, setup `.toml`, and review imports.
 - Improve `importlib` usage when loading M32K25 alphabet.
 - Review docstrings and typing information.
-- Update `README.md` file with initial Latex formulaes.
+- Update `README.md` file with initial Latex formulae.
 - Update `README.md` file with project structure.
+- Update `README.md` file with visual workflow.
 
 ### Future improvements:
 
