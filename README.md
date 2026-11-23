@@ -181,7 +181,7 @@ similarity = saencode.compute_matrix_overlap(traj_nmi_blocks)
 
 A full visualized example can be found here: `tutorial/example.ipynb`
 
-### Note on AI-drive development
+### Note on AI-assisted development
 
 **2026 11 23:** Claude Opus 4.8 was employed to optimize the following:
 - Review dependencies, setup `.toml`, and review imports.
