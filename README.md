@@ -65,7 +65,7 @@ $$
 The optimal rotation that superposes $Q_c$ onto $P_c$ is computed,
 
 $$
-d = \!\left(\det\!\left(V U^{\top}\right)\right), \qquad
+d = \left(\det\left(V U^{\top}\right)\right), \qquad
 R = V \, diag(1, 1, d) \, U^{\top},
 $$
 
