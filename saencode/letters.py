@@ -1,7 +1,6 @@
 # Import libraries
 import importlib
 from importlib.resources import files
-from pathlib import Path 
 import mdtraj as mdt
 
 

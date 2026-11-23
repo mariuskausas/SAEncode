@@ -3,51 +3,53 @@ import numpy as np
 from scipy.linalg import sqrtm
 
 
-def check_mat_is_psd(mat, tol=1e-8):
+def check_mat_is_psd(mat: np.ndarray, atol: float=1e-8) -> bool:
     """
     True if M is symmetric and positive semi-definite.
     
     Parameters
     ----------
-    mat : np.array
+    mat : np.ndarray
         Symmetric normalized mutual information or covariance matrix (n, n).
+    atol : float
+        Absolute tolerance for comparing differences of two matrices.
 
     Returns
     -------
     bool
-        True, if matrix is symmetrix and positive semi-definite.
+        True, if matrix is symmetric and positive semi-definite.
     """
 
     # Check that the matrix is 2-dimensional
     if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
         return False
     # Check that matrix is symmetrical
-    elif not np.allclose(mat, mat.T, atol=tol):
+    elif not np.allclose(mat, mat.T, atol=atol):
         return False
     # Check if matrix is positive semi-definite
     else:
-        return bool(np.all(np.linalg.eigvalsh(mat) >= -tol))
+        return bool(np.all(np.linalg.eigvalsh(mat) >= -atol))
 
 
-def matrix_overlap(A, B):
+def matrix_overlap(A: np.ndarray, B: np.ndarray) -> float:
     """ 
     Compute matrix overlap between two matrices.
 
-    Implementation as follows the following reference:
+    Implementation is based on the following reference:
     Berk Hess on "Convergence of sampling in protein simulations"
     Physical Review E - Statistical, Nonlinear, and Soft Matter Physics, 2002.
     
     Parameters
     ----------
-    A : np.array
+    A : np.ndarray
         A symmetric matrix.
-    B : np.array
+    B : np.ndarray
         A symmetric matrix.
 
     Returns
     -------
     overlap : float
-        A value between [0, 1] describing similarity between two nmatrices.
+        A value between [0, 1] describing similarity between two matrices.
     """
 
     # Check if matrices are positive semi-definite
@@ -62,18 +64,18 @@ def matrix_overlap(A, B):
 
     return overlap
 
-def compute_matrix_overlap(nmi_blocks):
+def compute_matrix_overlap(nmi_blocks: list[np.ndarray]) -> np.ndarray:
     """ 
     Compute matrix overlap for a list of nMI blocks.
     
-    Paramaters
+    Parameters
     ----------
     nmi_blocks : list
         A list of nMI blocks (matrices) for a given trajectory.
     
     Returns
     -------
-    overlap : np.array
+    overlap : np.ndarray
         A matrix (num_of_blocks, num_of_blocks) describing pairwise overlap between nMI blocks for a given trajectory.
 
     """

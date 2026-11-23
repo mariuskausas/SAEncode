@@ -5,27 +5,27 @@ from tqdm import tqdm
 from .letters import M32K25, LETTERS
 
 
-def mean_center_coords(A):
+def mean_center_coords(A: np.ndarray) -> np.ndarray:
     """ Mean center a coordinate matrix."""
 
     return A - np.mean(A, axis=0)
 
-def compute_rmsd(A, B):
+def compute_rmsd(A: np.ndarray, B: np.ndarray) -> float:
     """ Compute RMSD score between two XYZ coordinate systems."""
 
     num_of_atoms = A.shape[0]
     diff = A - B
     return np.sqrt((diff * diff).sum() / num_of_atoms)
 
-def compute_kabsch_rmsd(P, Q):
+def compute_kabsch_rmsd(P: np.ndarray, Q: np.ndarray) -> float:
     """ 
     Perform an optimal alignment of two XYZ systems using Kabsch algorithm.
     
     Parameters
     ----------
-    P : np.array
+    P : np.ndarray
         A matrix array (4, 3) describing XYZ coordinates of 4 CA-atoms.
-    Q : np.array
+    Q : np.ndarray
         A matrix array (4, 3) describing XYZ coordinates of 4 CA-atoms.
 
     Returns
@@ -34,11 +34,11 @@ def compute_kabsch_rmsd(P, Q):
         An RMSD value between two sets of XYZ systems.
     """
 
-    n, m = P.shape
+    _, m = P.shape
     P_centered = mean_center_coords(P)
     Q_centered = mean_center_coords(Q)
     H = P_centered.T @ Q_centered
-    U, S, V = np.linalg.svd(H)
+    U, _, V = np.linalg.svd(H)
     V = V.T
     D = np.linalg.det(V @ U.T)
     E = np.diag([1] * (m -1) + [D])
@@ -48,18 +48,19 @@ def compute_kabsch_rmsd(P, Q):
 
     return rmsd
 
-def encode_fragment(substructure):
+def encode_fragment(substructure: np.ndarray) -> str:
     """ 
     Encode a given substructure (4 consecutive CA atoms) from a trajectory.
     
     Parameters
     ----------
-    susbtructure : np.array
+    substructure : np.ndarray
         A matrix array (4, 3) describing XYZ coordinates of 4 CA-atoms.
     
     Returns
     -------
-    A selected M32K25 letter.
+    str
+        A selected M32K25 letter.
     """
 
     rmsds = np.zeros(len(LETTERS))
@@ -71,13 +72,13 @@ def encode_fragment(substructure):
 
     return LETTERS[index_for_min_val]
 
-def encode_frame(frame_xyz):
+def encode_frame(frame_xyz: np.ndarray) -> list[str]:
     """ 
-    Compute a single trajectory frame.
+    Encode a single trajectory frame.
 
     Parameters
     ----------
-    frame_xyz : np.array
+    frame_xyz : np.ndarray
         A matrix (num_of_CA_atoms, 3) containg XYZ CA coordinates of a single frame.
 
     Returns
@@ -96,18 +97,18 @@ def encode_frame(frame_xyz):
 
     return frame_encoding
 
-def encode_traj(traj_xyz):
+def encode_traj(traj_xyz: np.ndarray) -> np.ndarray:
     """
     Compute a trajectory encoding.
 
     Parameters
     ----------
-    traj_xyz : np.array
+    traj_xyz : np.ndarray
         A matrix (num_of_frames, num_of_CA_atoms, 3) containing XYZ CA coordinates across multiple frames.
     
     Returns
     -------
-    encoding : np.array
+    encoding : np.ndarray
         A matrix (num_of_frames, num_of_alphabets) containing trajectory encoding.
     """
 
