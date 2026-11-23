@@ -1,6 +1,6 @@
 # Import libraries
-import os
-import importlib.resources 
+import importlib
+from importlib.resources import files
 from pathlib import Path 
 import mdtraj as mdt
 
@@ -14,12 +14,9 @@ LETTERS = [
 
 # Load letter CA XYZ in a dictionary
 M32K25 = {}
-with importlib.resources.path('saencode.alphabet', '') as resource_path: 
-    data_path = Path(resource_path)
-    path_to_pdbs = list(data_path.iterdir())
-    for path_to_pdb in path_to_pdbs:
-        file_basename = os.path.basename(path_to_pdb)
-        if "pdb" in file_basename:
-            letter = file_basename[0]
-            letter_pdb = mdt.load_pdb(filename=path_to_pdb)
-            M32K25[letter] = letter_pdb.xyz[0]
+data_path = files('saencode.alphabet')
+for p in data_path.iterdir():
+    if p.name.endswith('.pdb'):
+        letter = p.name[0]
+        with importlib.resources.as_file(p) as fp:
+            M32K25[letter] = mdt.load_pdb(filename=str(fp)).xyz[0]

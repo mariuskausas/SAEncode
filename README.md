@@ -7,20 +7,17 @@ Python implementation of structural encoding using M32K25 and mutual information
 
 M32K25 structural alphabet was sourced from: https://github.com/AllosterIt/M32K25/tree/master
 
-### Required  third-party packages
+### Conda environement
 
-```
-mdtraj
-numpy
-scipy
-tqdm
+```bash
+conda create -n iso -c conda-forge python=3.11
+conda activate iso
 ```
 
 ### Installation
 
 ```bash
-# In the top level of the package
-pip install .
+pip install -e ".[dev]"
 ```
 
 ### Tutorial

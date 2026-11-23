@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "saencode"
+version = "0.1.0"
+description = "Structural Alphabet (M32K25) encoding and mutual-information analysis of molecular dynamics trajectories."
+readme = "README.md"
+requires-python = ">=3.11"
+# NumPy is left uncapped, so it resolves to 2.x; the mdtraj and scipy
+# floors below are the first releases that support NumPy 2 + Python 3.11.
+dependencies = [
+    "mdtraj>=1.10.2",
+    "numpy>=1.25",
+    "scipy>=1.13",
+    "tqdm>=4.64",
+]
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Marius Kausas" }]
+
+[project.optional-dependencies]
+dev = [
+    "MDAnalysisData>=0.9.0",
+    "pytest>=8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/mariuskausas/SAEncode"
+Repository = "https://github.com/mariuskausas/SAEncode"
+
+[tool.setuptools.packages.find]
+include = ["saencode*"]
+
+[tool.setuptools.package-data]
+saencode = ["alphabet/*.pdb"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
