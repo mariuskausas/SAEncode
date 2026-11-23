@@ -10,8 +10,8 @@ M32K25 structural alphabet was sourced from: https://github.com/AllosterIt/M32K2
 ### Conda environement
 
 ```bash
-conda create -n iso -c conda-forge python=3.11
-conda activate iso
+conda create -n saencode -c conda-forge python=3.11
+conda activate saencode
 ```
 
 ### Installation
@@ -24,12 +24,13 @@ pip install -e ".[dev]"
 
 ```python
 # Import libraries
+import mdtraj as mdt
+from MDAnalysisData import datasets
 import saencode
 ```
 
 ```python
 # Fetch an example molecular dynamics trajectory
-from MDAnalysisData import datasets
 adk = datasets.fetch_adk_equilibrium()
 ```
 
@@ -55,22 +56,22 @@ encoding = saencode.encode_traj(traj.xyz)
 ```
 
 ```
-# traj_encoding
+# encoding
 array([['B', 'G', 'A', ..., 'U', 'U', 'W'],
        ['E', 'G', 'G', ..., 'U', 'U', 'U'],
        ['E', 'D', 'I', ..., 'U', 'U', 'U'],
        ...,
        ['E', 'G', 'G', ..., 'U', 'U', 'U'],
        ['E', 'G', 'G', ..., 'U', 'U', 'W'],
-       ['B', 'G', 'L', ..., 'U', 'U', 'W']], dtype='<U1')
+       ['B', 'G', 'L', ..., 'U', 'U', 'W']], shape=(4187, 211), dtype='<U1')
 ```
 
 ```python
-# Compute normalized mutual information for a given trajectory block
-traj_nmi = saencode.compute_nMI_for_traj_block(encoding=encoding)
+# Compute normalized mutual information for a given number of trajectory block
+traj_nmi_blocks = saencode.compute_nMI_for_traj_blocks(encoding, number_of_blocks=5)
 ```
 
 ```python
 # Compute similarity (matrix overlap) between two normalized mutual information matrices
-similarity = saencode.compute_matrix_overlap([traj_nmi_1, traj_nmi_2])
+similarity = saencode.compute_matrix_overlap(traj_nmi_blocks)
 ```
