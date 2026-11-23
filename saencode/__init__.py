@@ -1,3 +1,3 @@
 from saencode.encode import encode_traj
-from saencode.mutual_information import compute_nMI_for_traj_block
+from saencode.mutual_information import compute_nMI_for_single_block, compute_nMI_for_traj_blocks
 from saencode.matrix_overlap import compute_matrix_overlap
